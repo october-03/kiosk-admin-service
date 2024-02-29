@@ -25,4 +25,8 @@ class StoreService(
     storeRepository.save(newAdmin)
     return newAdmin
   }
+
+  fun getStoreList(): List<Store> {
+    return storeRepository.findByRole(StoreRole.ROLE_STORE)
+  }
 }

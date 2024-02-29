@@ -25,4 +25,8 @@ class AdminService(
     storeRepository.save(newAdmin)
     return newAdmin
   }
+
+  fun findAll(): List<Store> {
+    return storeRepository.findAll()
+  }
 }

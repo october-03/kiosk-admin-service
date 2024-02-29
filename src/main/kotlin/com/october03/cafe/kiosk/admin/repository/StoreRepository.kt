@@ -30,4 +30,5 @@ data class Store (
 }
 
 interface StoreRepository: JpaRepository<Store, Long> {
+  fun findByRole(role: StoreRole): List<Store>
 }
