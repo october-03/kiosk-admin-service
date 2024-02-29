@@ -14,6 +14,7 @@ data class Store (
   val name: String,
   val latitude: Double,
   val longitude: Double,
+  @Enumerated(EnumType.STRING)
   val role: StoreRole,
   val password: String,
   val createdAt: LocalDateTime = LocalDateTime.now(),
