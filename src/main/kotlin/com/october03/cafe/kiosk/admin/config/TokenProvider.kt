@@ -1,5 +1,6 @@
 package com.october03.cafe.kiosk.admin.config
 
+import com.october03.cafe.kiosk.admin.service.CustomUser
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -27,25 +28,25 @@ class TokenProvider(
 ) {
   private var key = SecretKeySpec(secretKey.toByteArray(), SignatureAlgorithm.HS256.jcaName)
 
-//  fun createToken(authentication: Authentication): String {
-//    val now = Date()
-//    val accessExpiration = Date(now.time + accessExpirationHours * 60 * 60 * 1000)
-//
-//    val authorities: String = authentication
-//      .authorities
-//      .joinToString(",", transform = GrantedAuthority::getAuthority)
-//
-//    val accessToken = Jwts.builder()
-//      .setSubject(authentication.name)
-//      .claim("auth", authorities)
-//      .claim("userId", (authentication.principal as CustomUser).userId)
-//      .setIssuedAt(now)
-//      .setExpiration(accessExpiration)
-//      .signWith(key)
-//      .compact()
-//
-//    return accessToken
-//  }
+  fun createToken(authentication: Authentication): String {
+    val now = Date()
+    val accessExpiration = Date(now.time + accessExpirationHours * 60 * 60 * 1000)
+
+    val authorities: String = authentication
+      .authorities
+      .joinToString(",", transform = GrantedAuthority::getAuthority)
+
+    val accessToken = Jwts.builder()
+      .setSubject(authentication.name)
+      .claim("auth", authorities)
+      .claim("userId", (authentication.principal as CustomUser).userId)
+      .setIssuedAt(now)
+      .setExpiration(accessExpiration)
+      .signWith(key)
+      .compact()
+
+    return accessToken
+  }
 
   fun getAuthentication (token: String) : Authentication {
     val claims = getClaims(token)
